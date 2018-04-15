@@ -20,7 +20,6 @@ for i=1:T %n >> T
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
     ii = randi(n);
-    cpu_seconds = cpu_seconds + time_seq(i);
     fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f.  \n', T, i, ii, cpu_seconds);
     tic;
     Ai = A(ii,:);
@@ -54,6 +53,7 @@ for i=1:T %n >> T
     gradient = query_gradient(x_t, Ai, yi, gamma, model_opt);
     x_t = x_t - eta*gradient;
     time_seq(i,:) = toc;%record time for ploting lines
+    cpu_seconds = cpu_seconds + time_seq(i,:);
     % compute the local minimizer 
     [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) ;
     f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  gamma, model_opt) ;
