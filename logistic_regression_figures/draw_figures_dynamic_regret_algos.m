@@ -1,25 +1,25 @@
 %our method
 sum_f_seq_var_01_level_2_MOGD = load('./levels=2(default)/MOGD/var=0.01(default)/sum_f_seq.txt','-ascii');
-time_seq_var_01_level_2_MOGD =  load('./levels=2(default)/MOGD/var=0.01(default)/time_seq.txt','-ascii');
+time_seq_var_01_level_2_MOGD =  load('./levels=2(default)/MOGD/var=0.01(default)/sum_time_seq.txt','-ascii');
 sum_f_seq_var_01_level_2_OMGD = load('./levels=2(default)/OMGD/var=0.01(default)/sum_f_seq.txt','-ascii');
-time_seq_var_01_level_2_OMGD = load('./levels=2(default)/OMGD/var=0.01(default)/time_seq.txt','-ascii');
+time_seq_var_01_level_2_OMGD = load('./levels=2(default)/OMGD/var=0.01(default)/sum_time_seq.txt','-ascii');
 %sum_f_seq_var_01_level_5 = load('./levels=5/var=0.01(default)/sum_f_seq.txt','-ascii');
 %sum_f_seq_var_01_level_5 = load('./levels=5/var=0.0001/sum_f_seq.txt','-ascii');
 
 model_opt = 'logistic_regression';
 
-index_x_seq_MOGD = 20*(1:20000/20);
-index_x_seq_OMGD = 20*(1:5000/20);
+
+
 
 if strcmp(model_opt,'logistic_regression')
     
     %var = 0.01
-    plot(time_seq_var_01_level_2_MOGD(index_x_seq_MOGD), sum_f_seq_var_01_level_2_MOGD(index_x_seq_MOGD), '-or'); 
+    plot(time_seq_var_01_level_2_MOGD, sum_f_seq_var_01_level_2_MOGD, '-or'); 
     hold on;
     %plot(index_x_seq, sum_f_seq_var_0001_level_2(index_x_seq), '-+r'); 
     %hold on;
     
-    plot(time_seq_var_01_level_2_OMGD(index_x_seq_OMGD), sum_f_seq_var_01_level_2_OMGD(index_x_seq_OMGD), '-ob');
+    plot(time_seq_var_01_level_2_OMGD, sum_f_seq_var_01_level_2_OMGD, '-ob');
     hold on;
     %plot(index_x_seq, sum_f_seq_var_0001_level_5(index_x_seq), '-+b'); 
     %hold on;
