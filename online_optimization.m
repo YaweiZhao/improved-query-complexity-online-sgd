@@ -53,10 +53,15 @@ for i=1:T %n >> T
     gradient = query_gradient(x_t, Ai, yi, gamma, model_opt);
     x_t = x_t - eta*gradient;
     time_seq(i,:) = toc;%record time for ploting lines
-    cpu_seconds = cpu_seconds + time_seq(i,:);
     % compute the local minimizer 
     [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) ;
     f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  gamma, model_opt) ;
+    
+    %terminate the process
+    cpu_seconds = cpu_seconds + time_seq(i,:);
+    if cpu_seconds > 361
+        break;
+    end
 end
 
 
