@@ -73,7 +73,7 @@ end
 function [x_t_opt, f_t_opt] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) 
 
 if strcmp(model_opt,'ridge_regression')
-    options = optimoptions('fminunc','Algorithm','trust-region','SpecifyObjectiveGradient',true);
+    options = optimoptions('fminunc','Algorithm','trust-region','GradObj','on');
     problem.options = options;
     problem.x0 = x_t;
     problem.objective = @(x)ridge_regression_with_grad(x, Ai, yi, gamma);
@@ -82,7 +82,7 @@ if strcmp(model_opt,'ridge_regression')
     [x_t_opt, f_t_opt] = fminunc(problem);
 elseif strcmp(model_opt,'logistic_regression')
     %use matlab optimization toolbox
-    options = optimoptions('fminunc','Algorithm','trust-region','SpecifyObjectiveGradient',true);
+    options = optimoptions('fminunc','Algorithm','trust-region','GradObj','on');
     problem.options = options;
     problem.x0 = x_t;
     problem.objective = @(x)logistic_regression_with_grad(x, Ai, yi, gamma);
