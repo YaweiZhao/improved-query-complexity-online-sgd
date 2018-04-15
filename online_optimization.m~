@@ -20,9 +20,8 @@ for i=1:T %n >> T
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
     ii = randi(n);
-    if mod(i,200) == 0
-        fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f | regret = %f.  \n', T, i, ii, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
-    end
+    if mod(i,10)=
+    fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f | regret = %f.  \n', T, i, ii, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     tic;
     Ai = A(ii,:);
     yi = y(ii,:);
