@@ -32,7 +32,7 @@ for i=1:T %n >> T
                 x_t = x_t - eta*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(n) % K: iterate n/10 for GD
+            for j = 1:fix(n/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta*gradient;
             end
