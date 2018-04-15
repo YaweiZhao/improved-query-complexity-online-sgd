@@ -17,8 +17,8 @@ T = 4000; %iterations
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
 %optmization
-%ALGO = 'MOGD';%our method
-ALGO = 'OMGD';%Lijun Zhang
+ALGO = 'MOGD';%our method
+%ALGO = 'OMGD';%Lijun Zhang
 %ALGO = 'OGD';%CDC 2016
 [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  modular, ALGO);
 
@@ -28,7 +28,7 @@ save('sum_x_seq.txt', 'sum_x_seq', '-ascii');
 save('sum_squared_x_seq.txt', 'sum_squared_x_seq', '-ascii');
 save('sum_f_seq.txt', 'sum_f_seq', '-ascii');
 save('time_seq.txt', 'time_seq', '-ascii');
-plot_lines(sum_x_seq, sum_squared_x_seq, sum_f_seq, T, model_opt, modular,dynamic_variation_base, n_dynamic);
+%plot_lines(sum_x_seq, sum_squared_x_seq, sum_f_seq, T, model_opt, modular,dynamic_variation_base, n_dynamic);
 
 
 
