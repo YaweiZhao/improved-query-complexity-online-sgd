@@ -14,13 +14,14 @@ x_seq = zeros(T,d);
 f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
-
+cpu_seconds = 0;
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
     ii = randi(n);
-    fprintf('T = %d | i = %d  | ii = %d. \n', T, i, ii);
+    cpu_seconds = cpu_seconds + time_seq(i);
+    fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f.  \n', T, i, ii, cpu_seconds);
     tic;
     Ai = A(ii,:);
     yi = y(ii,:);
