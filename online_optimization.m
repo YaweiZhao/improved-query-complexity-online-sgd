@@ -1,4 +1,4 @@
-function [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(data, y, T, model_opt, modular)
+function [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(data, y, T, model_opt, modular, ALGO)
 A = data;
 [n,d] = size(A);
 if strcmp(model_opt,'ridge_regression')
@@ -7,13 +7,14 @@ elseif strcmp(model_opt,'logistic_regression')
     % do nothing
 end
 x_t = zeros(d,1);
-eta = 1e-4;%learning rate
+eta = 1e-6;%learning rate
 gamma = 1e1;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
+
 tic;
 for i=1:T %n >> T
     if i>n
@@ -23,9 +24,18 @@ for i=1:T %n >> T
     yi = y(i,:);
     %optimization modular
     if strcmp(modular, 'GD')
-        for j = 1:fix(n/10) % K: iterate n/10 for GD
-            gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
-            x_t = x_t - eta*gradient;
+        if strcmp(ALGO, 'MOGD')
+            for j = 1:fix(n/10) % K: iterate n/10 for GD
+                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+                x_t = x_t - eta*gradient;
+            end
+        elseif strcmp(ALGO, 'OMGD')
+            for j = 1:fix(n) % K: iterate n/10 for GD
+                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+                x_t = x_t - eta*gradient;
+            end
+        elseif strcmp(ALGO, 'OGD')
+            %do nothing
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         
@@ -75,7 +85,7 @@ elseif strcmp(model_opt,'logistic_regression')
     options = optimoptions('fminunc','Algorithm','trust-region','SpecifyObjectiveGradient',true);
     problem.options = options;
     problem.x0 = x_t;
-    problem.objective = @(x)logistic_regression_with_grad(x, Ai, yi);
+    problem.objective = @(x)logistic_regression_with_grad(x, Ai, yi, gamma);
     problem.solver = 'fminunc';
 
     [x_t_opt, f_t_opt] = fminunc(problem);
@@ -87,7 +97,7 @@ function [f_t_opt] = get_local_loss(x_t, Ai, yi,  gamma, model_opt)
 if strcmp(model_opt,'ridge_regression')
     f_t_opt = (Ai*x_t-yi)*transpose(Ai*x_t-yi) + gamma/2*(x_t'*x_t);
 elseif strcmp(model_opt,'logistic_regression')
-    f_t_opt = log(1+exp(-yi*Ai*x_t));  
+    f_t_opt = log(1+exp(-yi*Ai*x_t)) + gamma/2*(x_t'*x_t);  
 end
 
 end
@@ -99,8 +109,8 @@ f = (Ai*x-yi)*transpose(Ai*x-yi) + gamma/2*(x'*x);
 g = (Ai*x - yi)*Ai'+gamma*x;
 end
 
-function[f, g] = logistic_regression_with_grad(x, Ai, yi)
-f = log(1+exp(-yi*Ai*x));
-g = -yi/(1+exp(yi*Ai*x))*Ai';
+function[f, g] = logistic_regression_with_grad(x, Ai, yi, gamma)
+f = log(1+exp(-yi*Ai*x)) + gamma/2*(x'*x);
+g = -yi/(1+exp(yi*Ai*x))*Ai' + gamma*x;
 end
 

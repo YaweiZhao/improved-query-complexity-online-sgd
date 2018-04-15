@@ -6,18 +6,21 @@ rng('default');
 %model_opt = 'ridge_regression';
 model_opt = 'logistic_regression';
 modular = 'GD';
-dynamic_variation_base = 0.1;
+dynamic_variation_base = 0.01;
 n_dynamic = 2;
 
 %other settings
-n = 1000; %divide n_dynamic
-d = 5;
-T = 1000; %iterations
+n = 5000; %divide n_dynamic
+d = 5;%5
+T = 4000; %iterations
 
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
 %optmization
-[x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  modular);
+%ALGO = 'MOGD';%our method
+ALGO = 'OMGD';%Lijun Zhang
+%ALGO = 'OGD';%CDC 2016
+[x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  modular, ALGO);
 
 %plot
 [sum_x_seq, sum_squared_x_seq, sum_f_seq] = get_sum_seq(x_seq, f_t_seq, f_seq);

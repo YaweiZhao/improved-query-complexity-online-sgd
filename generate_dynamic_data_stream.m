@@ -37,12 +37,12 @@ function[A, y] = logistic_regression(dynamic, n,d)
 % model y = sum log(1+exp(-y Ax))
 n1 = fix(n/2);
 n2 = n-n1;
-A1 = 5 + rand(n1, d);
+A1 = 1 + rand(n1, d);
 y1 = ones(n1,1);
-A2 = -5 + rand(n1, d);
+A2 = -1 - rand(n1, d);
 y2 = -ones(n2,1);
-A = dynamic*[A1;A2];%simulate the dynamic model
-y = [y1; y2]+ 0.5*randn(n,1);
+A = 0.1*dynamic*[A1;A2];%simulate the dynamic model
+y = [y1; y2];
 
 end
 
