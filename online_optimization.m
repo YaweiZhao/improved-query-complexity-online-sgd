@@ -15,12 +15,13 @@ f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 
-tic;
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
     ii = randi(n);
+    fprintf('T = %d | i = %d  | ii = %d. \n', T, i, ii);
+    tic;
     Ai = A(ii,:);
     yi = y(ii,:);
     %optimization modular
@@ -31,12 +32,13 @@ for i=1:T %n >> T
                 x_t = x_t - eta*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(n/10) % K: iterate n/10 for GD
+            for j = 1:fix(n) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta*gradient;
             end
         elseif strcmp(ALGO, 'OGD')
-            %do nothing
+            %do nothing, yes! do nothing
+            
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         
