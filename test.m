@@ -10,9 +10,10 @@ dynamic_variation_base = 0.01;
 n_dynamic = 2;
 
 %other settings
-n = 5000; %divide n_dynamic
+n = 50000; %divide n_dynamic
 d = 5;%5
-T = 4000; %iterations
+T = 5000; %iterations for MOGD
+%T = 4000; %iterations for OMGD
 
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
