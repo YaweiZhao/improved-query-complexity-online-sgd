@@ -12,14 +12,14 @@ n_dynamic = 2;
 %other settings
 n = 50000; %divide n_dynamic
 d = 5;%5
-%T = 50000; %iterations for MOGD
-T = 5000; %iterations for OMGD
+T = 20000; %iterations for MOGD
+%T = 5000; %iterations for OMGD
 
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
 %optmization
-%ALGO = 'MOGD';%our method
-ALGO = 'OMGD';%Lijun Zhang
+ALGO = 'MOGD';%our method
+%ALGO = 'OMGD';%Lijun Zhang
 %ALGO = 'OGD';%CDC 2016
 [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  modular, ALGO);
 

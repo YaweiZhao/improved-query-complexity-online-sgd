@@ -8,8 +8,8 @@ time_seq_var_01_level_2_OMGD = load('./levels=2(default)/OMGD/var=0.01(default)/
 
 model_opt = 'logistic_regression';
 
-index_x_seq_OMGD = 20*(1:4000/20);
-index_x_seq_MOGD = 20*(1:10000/20);
+index_x_seq_OMGD = 20*(1:1000/20);
+index_x_seq_MOGD = 20*(1:50000/20);
 if strcmp(model_opt,'logistic_regression')
     
     %var = 0.01
