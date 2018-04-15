@@ -20,8 +20,9 @@ for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
-    Ai = A(i,:);
-    yi = y(i,:);
+    ii = randi(n);
+    Ai = A(ii,:);
+    yi = y(ii,:);
     %optimization modular
     if strcmp(modular, 'GD')
         if strcmp(ALGO, 'MOGD')
