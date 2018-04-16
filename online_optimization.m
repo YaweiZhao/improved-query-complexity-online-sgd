@@ -15,11 +15,19 @@ f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 cpu_seconds = 0;
+
+dynamic_model = 'time_varying';
+
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
-    ii = randi(n);
+    if strcmp(dynamic_model, 'time_varying')
+        ii = i;
+    else
+        ii = randi(n);
+    end
+    
     if mod(i,200) == 0
         fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f | regret = %f.  \n', T, i, ii, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
@@ -31,19 +39,19 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD')
             delta = 5;
             eta2 = eta*delta;
-            for j = 1:fix(1000) % K: iterate n/10 for GD
+            for j = 1:fix(10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(1000) % K: iterate n/10 for GD
+            for j = 1:fix(10) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(800) % K: iterate n/10 for GD
+            for j = 1:fix(8) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta2*gradient;
@@ -64,11 +72,12 @@ for i=1:T %n >> T
     
     gradient = query_gradient(x_t, Ai, yi, gamma, model_opt);
     x_t = x_t - eta*gradient;
-    time_seq(i,:) = toc;%record time for ploting lines
-    % compute the local minimizer 
-    [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) ;
-    f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  gamma, model_opt) ;
-    
+    if mod(i,5000) == 0 %output info not frequently
+        time_seq(i,:) = toc;%record time for ploting lines
+        % compute the local minimizer 
+        [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) ;
+        f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  gamma, model_opt) ;
+    end
     %terminate the process
     cpu_seconds = cpu_seconds + time_seq(i,:);
     if cpu_seconds > 401
