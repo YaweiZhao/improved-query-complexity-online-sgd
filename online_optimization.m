@@ -7,7 +7,7 @@ elseif strcmp(model_opt,'logistic_regression')
     % do nothing
 end
 x_t = zeros(d,1);
-eta = 1e-6;%learning rate
+eta = 1e-8;%learning rate
 gamma = 1e1;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
@@ -29,14 +29,14 @@ for i=1:T %n >> T
     %optimization modular
     if strcmp(modular, 'GD')
         if strcmp(ALGO, 'MOGD')
-            delta = 1;
+            delta = 10;
             eta2 = eta*delta;
-            for j = 1:fix(n/100) % K: iterate n/10 for GD
+            for j = 1:fix(n/1000) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(n/100) % K: iterate n/10 for GD
+            for j = 1:fix(n/1000) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
                 x_t = x_t - eta2*gradient;
