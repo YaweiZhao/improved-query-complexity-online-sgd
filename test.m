@@ -8,7 +8,7 @@ model_opt = 'ridge_regression';
 module = 'GD';
 %module = 'NAGM';
 dynamic_variation_base = 0.01;
-n_dynamic = 10;
+n_dynamic = 100;%10 in default, 100 is for time-varying dynamics.
 
 %other settings
 n = 5000000; %divide n_dynamic
