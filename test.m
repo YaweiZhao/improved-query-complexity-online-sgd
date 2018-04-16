@@ -7,7 +7,7 @@ rng('default');
 model_opt = 'logistic_regression';
 modular = 'GD';
 dynamic_variation_base = 0.01;
-n_dynamic = 2;
+n_dynamic = 10;
 
 %other settings
 n = 500000; %divide n_dynamic
