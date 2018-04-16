@@ -43,7 +43,11 @@ for i=1:T %n >> T
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            
+            for j = 1:fix(10) % K: iterate n/10 for GD
+                eta2 = eta;
+                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+                x_t = x_t - eta2*gradient;
+            end
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         
