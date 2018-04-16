@@ -78,7 +78,7 @@ function [gradient] = query_gradient(x_t, Ai, yi, gamma,  model_opt)
 if strcmp(model_opt,'ridge_regression')
     gradient = (Ai*x_t - yi)*Ai'+gamma*x_t;
 elseif strcmp(model_opt,'logistic_regression')
-    gradient = -yi/(1+exp(yi*Ai*x_t))*Ai';
+    gradient = -yi/(1+exp(yi*Ai*x_t))*Ai'+gamma*x_t;
 end
 
 end
