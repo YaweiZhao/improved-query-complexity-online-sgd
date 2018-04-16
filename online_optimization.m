@@ -29,7 +29,7 @@ for i=1:T %n >> T
     %optimization modular
     if strcmp(modular, 'GD')
         if strcmp(ALGO, 'MOGD')
-            delta = 2;
+            delta = 1;
             eta2 = eta*delta;
             for j = 1:fix(n/100) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
