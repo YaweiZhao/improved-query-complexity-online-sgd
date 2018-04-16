@@ -7,8 +7,8 @@ elseif strcmp(model_opt,'logistic_regression')
     % do nothing
 end
 x_t = zeros(d,1);
-eta = 1e-8;%learning rate
-gamma = 1e-3;%regularization constant
+eta = 1e-6;%learning rate
+gamma = 1e-4;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
