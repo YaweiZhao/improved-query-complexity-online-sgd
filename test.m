@@ -5,7 +5,8 @@ rng('default');
 %settings of dynamic environment
 %model_opt = 'ridge_regression';
 model_opt = 'logistic_regression';
-modular = 'GD';
+%modular = 'GD';
+modular = 'NAGM';
 dynamic_variation_base = 0.01;
 n_dynamic = 10;
 
@@ -17,9 +18,9 @@ T = 500000;
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
 %optmization
-%ALGO = 'MOGD';%our method
+ALGO = 'MOGD';%our method
 %ALGO = 'OMGD';%Lijun Zhang
-ALGO = 'OGD';%CDC 2016
+%ALGO = 'OGD';%CDC 2016
 [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  modular, ALGO);
 
 %plot

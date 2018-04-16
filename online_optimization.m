@@ -50,7 +50,10 @@ for i=1:T %n >> T
             end
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
-        %nesterov_accelerated_gradient_method();
+        %use GDLibrary 
+        [ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,gamma, d, model_opt);
+        
+        
     elseif strcmp(modular, 'SGD')%for compostional optimization
         % decaying eta
         
