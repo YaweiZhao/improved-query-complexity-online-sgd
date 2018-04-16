@@ -26,7 +26,7 @@ if strcmp(model_opt,'logistic_regression')
     hold on;
     
     
-    xlabel('Iterations', 'fontsize', 18);
+    xlabel('CPU seconds', 'fontsize', 18);
     ylabel('Dynamic regret', 'fontsize', 18 );
     axis([1 400 1 10000]);
     %$$ \mathcal{P}_T^{\ast} $$

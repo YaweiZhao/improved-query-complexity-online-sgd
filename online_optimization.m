@@ -61,7 +61,6 @@ for i=1:T %n >> T
         % decaying eta
         
     end
-    
     gradient = query_gradient(x_t, Ai, yi, gamma, model_opt);
     x_t = x_t - eta*gradient;
     time_seq(i,:) = toc;%record time for ploting lines
