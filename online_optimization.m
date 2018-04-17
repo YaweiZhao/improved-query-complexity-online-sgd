@@ -8,14 +8,15 @@ elseif strcmp(model_opt,'logistic_regression')
 end
 x_t = zeros(d,1);
 eta = 1e-5;%learning rate
-%gamma = 1e-4;%regularization constant
-gamma = 1e-5;%regularization constant
+%alpha = 1e-3;%regularization constant
+alpha = 1e-5;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 cpu_seconds = 0;
+kappa = get_condition_number(A,model_opt);
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
@@ -33,27 +34,27 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD')
             delta = 5;
             eta2 = eta*delta;
-            for j = 1:fix(1000) % K: iterate n/10 for GD
-                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+            for j = 1:fix(kappa) % K: iterate n/10 for GD
+                gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(1000) % K: iterate n/10 for GD
+            for j = 1:fix(kappa) % K: iterate n/10 for GD
                 eta2 = eta;
-                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+                gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(800) % K: iterate n/10 for GD
+            for j = 1:fix(0.8*kappa) % K: iterate n/10 for GD
                 eta2 = eta;
-                gradient = query_gradient(x_t, Ai, yi, gamma,  model_opt);
+                gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         %use GDLibrary 
-        [ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,gamma, d, model_opt);
+        [ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,alpha, d, model_opt);
         
         
     elseif strcmp(modular, 'SGD')%for compostional optimization
@@ -64,12 +65,12 @@ for i=1:T %n >> T
         
     end
     
-    gradient = query_gradient(x_t, Ai, yi, gamma, model_opt);
+    gradient = query_gradient(x_t, Ai, yi, alpha, model_opt);
     x_t = x_t - eta*gradient;
     time_seq(i,:) = toc;%record time for ploting lines
     % compute the local minimizer 
-    [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) ;
-    f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  gamma, model_opt) ;
+    [x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, yi,  alpha, model_opt) ;
+    f_t_seq(i,:) = get_local_loss(x_t, Ai, yi,  alpha, model_opt) ;
     
     %terminate the process
     cpu_seconds = cpu_seconds + time_seq(i,:);
@@ -82,24 +83,24 @@ end
 end
 
 
-function [gradient] = query_gradient(x_t, Ai, yi, gamma,  model_opt)
+function [gradient] = query_gradient(x_t, Ai, yi, alpha,  model_opt)
 
 if strcmp(model_opt,'ridge_regression')
-    gradient = (Ai*x_t - yi)*Ai'+gamma*x_t;
+    gradient = (Ai*x_t - yi)*Ai'+alpha*x_t;
 elseif strcmp(model_opt,'logistic_regression')
-    gradient = -yi/(1+exp(yi*Ai*x_t))*Ai'+gamma*x_t;
+    gradient = -yi/(1+exp(yi*Ai*x_t))*Ai'+alpha*x_t;
 end
 
 end
 
 
-function [x_t_opt, f_t_opt] = get_local_minimizer(x_t, Ai, yi,  gamma, model_opt) 
+function [x_t_opt, f_t_opt] = get_local_minimizer(x_t, Ai, yi,  alpha, model_opt) 
 
 if strcmp(model_opt,'ridge_regression')
     options = optimoptions('fminunc','Algorithm','trust-region','GradObj','on', 'display','off');
     problem.options = options;
     problem.x0 = x_t;
-    problem.objective = @(x)ridge_regression_with_grad(x, Ai, yi, gamma);
+    problem.objective = @(x)ridge_regression_with_grad(x, Ai, yi, alpha);
     problem.solver = 'fminunc';
     
     [x_t_opt, f_t_opt] = fminunc(problem);
@@ -108,7 +109,7 @@ elseif strcmp(model_opt,'logistic_regression')
     options = optimoptions('fminunc','Algorithm','trust-region','GradObj','on', 'display','off');
     problem.options = options;
     problem.x0 = x_t;
-    problem.objective = @(x)logistic_regression_with_grad(x, Ai, yi, gamma);
+    problem.objective = @(x)logistic_regression_with_grad(x, Ai, yi, alpha);
     problem.solver = 'fminunc';
 
     [x_t_opt, f_t_opt] = fminunc(problem);
@@ -116,24 +117,41 @@ elseif strcmp(model_opt,'logistic_regression')
 end
 end
 
-function [f_t_opt] = get_local_loss(x_t, Ai, yi,  gamma, model_opt)
+function [f_t_opt] = get_local_loss(x_t, Ai, yi,  alpha, model_opt)
 if strcmp(model_opt,'ridge_regression')
-    f_t_opt = (Ai*x_t-yi)*transpose(Ai*x_t-yi) + gamma/2*(x_t'*x_t);
+    f_t_opt = (Ai*x_t-yi)*transpose(Ai*x_t-yi) + alpha/2*(x_t'*x_t);
 elseif strcmp(model_opt,'logistic_regression')
-    f_t_opt = log(1+exp(-yi*Ai*x_t)) + gamma/2*(x_t'*x_t);  
+    f_t_opt = log(1+exp(-yi*Ai*x_t)) + alpha/2*(x_t'*x_t);  
 end
 
 end
 
 
 
-function[f, g] = ridge_regression_with_grad(x, Ai, yi, gamma)
-f = (Ai*x-yi)*transpose(Ai*x-yi) + gamma/2*(x'*x);
-g = (Ai*x - yi)*Ai'+gamma*x;
+function[f, g] = ridge_regression_with_grad(x, Ai, yi, alpha)
+f = (Ai*x-yi)*transpose(Ai*x-yi) + alpha/2*(x'*x);
+g = (Ai*x - yi)*Ai'+alpha*x;
 end
 
-function[f, g] = logistic_regression_with_grad(x, Ai, yi, gamma)
-f = log(1+exp(-yi*Ai*x)) + gamma/2*(x'*x);
-g = -yi/(1+exp(yi*Ai*x))*Ai' + gamma*x;
+function[f, g] = logistic_regression_with_grad(x, Ai, yi, alpha)
+f = log(1+exp(-yi*Ai*x)) + alpha/2*(x'*x);
+g = -yi/(1+exp(yi*Ai*x))*Ai' + alpha*x;
 end
+
+
+function [kappa] = get_condition_number(A,model_opt)
+[n,d] = size(A);
+if strcmp(model_opt,'ridge_regression')
+    A_temp = [A ones(n,1)];
+    [~, eigvalue_A] = eig(A_temp'*A_temp);
+    beta = 2*( max(eigvalue_A) + alpha/2 );%find the maximal eigen value
+    kappa = beta/alpha;
+elseif strcmp(model_opt,'logistic_regression')
+    temp = max(sum(A .* A,2));
+    beta = temp/4+alpha;
+    kappa = beta/alpha;
+end
+
+end
+
 
