@@ -7,7 +7,6 @@ elseif strcmp(model_opt,'logistic_regression')
     % do nothing
 end
 x_t = zeros(d,1);
-eta = 1e-6;%learning rate
 %alpha = 1e-3;%regularization constant
 alpha = 1;%regularization constant
 %record local minimizers
@@ -16,7 +15,8 @@ f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 cpu_seconds = 0;
-kappa = get_condition_number(A,alpha, model_opt);
+[kappa, beta]= get_condition_number(A,alpha, model_opt);
+eta = 1/beta;%learning rate
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
