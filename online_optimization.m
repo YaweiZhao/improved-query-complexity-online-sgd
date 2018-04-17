@@ -16,7 +16,7 @@ f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 cpu_seconds = 0;
-kappa = get_condition_number(A,model_opt);
+kappa = get_condition_number(A,alpha, model_opt);
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
@@ -139,7 +139,7 @@ g = -yi/(1+exp(yi*Ai*x))*Ai' + alpha*x;
 end
 
 
-function [kappa] = get_condition_number(A,model_opt)
+function [kappa] = get_condition_number(A,alpha,model_opt)
 [n,d] = size(A);
 if strcmp(model_opt,'ridge_regression')
     A_temp = [A ones(n,1)];
