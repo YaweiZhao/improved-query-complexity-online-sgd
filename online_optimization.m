@@ -24,7 +24,7 @@ for i=1:T %n >> T
     
     ii = randi(n);
     if mod(i,200) == 0
-        fprintf('i = %d | kappa = %.2f | eta=%f | cpu sec = %.2f | regret = %.5f.  \n', i, kappa, eta,cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
+        fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
     tic;
     Ai = A(ii,:);
@@ -32,7 +32,7 @@ for i=1:T %n >> T
     %optimization modular
     if strcmp(modular, 'GD')
         if strcmp(ALGO, 'MOGD')
-            delta = 5;
+            delta = 2;
             eta2 = eta*delta;
             for j = 1:fix(kappa) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
