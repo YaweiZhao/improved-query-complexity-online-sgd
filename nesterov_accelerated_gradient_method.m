@@ -12,7 +12,7 @@ clear options;
 % general options for optimization algorithms
 options.w_init = x_t;
 options.tol_gnorm = 1e-6;
-options.max_iter = 1000;
+options.max_iter = 100;
 options.verbose = false;
 options.store_w = false;
 options.step_alg = 'backtracking';
