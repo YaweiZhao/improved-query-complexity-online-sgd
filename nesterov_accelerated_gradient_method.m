@@ -16,7 +16,7 @@ options.max_iter = 100;
 options.verbose = false;
 options.store_w = false;
 %options.step_alg = 'backtracking';
-options.step_alg = 'tfocs_backtracking';
+options.step_alg = 'exact';
 [x_opt, ~] = gd_nesterov(problem, options);
 f_opt  = f(x_opt);
 
