@@ -12,11 +12,11 @@ clear options;
 % general options for optimization algorithms
 options.w_init = x_t;
 options.tol_gnorm = 1e-6;
-options.max_iter = 100;
+options.max_iter = 50;
 options.verbose = false;
 options.store_w = false;
-%options.step_alg = 'backtracking';
-options.step_alg = 'exact';
+options.step_alg = 'backtracking';
+%options.step_alg = 'exact';
 [x_opt, ~] = gd_nesterov(problem, options);
 f_opt  = f(x_opt);
 
