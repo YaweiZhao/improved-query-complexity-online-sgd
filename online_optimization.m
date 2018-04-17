@@ -7,9 +7,9 @@ elseif strcmp(model_opt,'logistic_regression')
     % do nothing
 end
 x_t = zeros(d,1);
-eta = 1e-5;%learning rate
+eta = 1e-6;%learning rate
 %alpha = 1e-3;%regularization constant
-alpha = 1e-5;%regularization constant
+alpha = 1;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
@@ -24,7 +24,7 @@ for i=1:T %n >> T
     
     ii = randi(n);
     if mod(i,200) == 0
-        fprintf('T = %d | i = %d  | kappa = %f | accumulated time = %f | regret = %f.  \n', T, i, kappa, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
+        fprintf('T = %d | i = %d | kappa = %.2f |  cpu sec = %.2f | regret = %.2f.  \n', T, i, kappa, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
     tic;
     Ai = A(ii,:);
@@ -143,7 +143,7 @@ function [kappa, beta ] = get_condition_number(A,alpha,model_opt)
 [n,d] = size(A);
 if strcmp(model_opt,'ridge_regression')
     A_temp = [A ones(n,1)];
-    [~, eigvalue_A] = eig(A_temp'*A_temp);
+    eigvalue_A = eig(A_temp'*A_temp);
     beta = 2*( max(eigvalue_A) + alpha/2 );%find the maximal eigen value
     kappa = beta/alpha;
 elseif strcmp(model_opt,'logistic_regression')

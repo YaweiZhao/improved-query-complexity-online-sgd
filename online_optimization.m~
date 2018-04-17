@@ -8,14 +8,15 @@ elseif strcmp(model_opt,'logistic_regression')
 end
 x_t = zeros(d,1);
 eta = 1e-5;%learning rate
-%alpha = 1e-4;%regularization constant
-alpha = 1e-6;%regularization constant
+%alpha = 1e-3;%regularization constant
+alpha = 1e-5;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
 f_t_seq = zeros(T,1);
 time_seq = zeros(T,1);
 cpu_seconds = 0;
+kappa = get_condition_number(A,alpha, model_opt);
 for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
@@ -23,7 +24,7 @@ for i=1:T %n >> T
     
     ii = randi(n);
     if mod(i,200) == 0
-        fprintf('T = %d | i = %d  | ii = %d | accumulated time = %f | regret = %f.  \n', T, i, ii, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
+        fprintf('T = %d | i = %d | accumulated time = %.2f | regret = %.4f.  \n', T, i, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
     tic;
     Ai = A(ii,:);
@@ -33,19 +34,19 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD')
             delta = 5;
             eta2 = eta*delta;
-            for j = 1:fix(1000) % K: iterate n/10 for GD
+            for j = 1:fix(kappa) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(1000) % K: iterate n/10 for GD
+            for j = 1:fix(kappa) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(800) % K: iterate n/10 for GD
+            for j = 1:fix(1) %
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, alpha,  model_opt);
                 x_t = x_t - eta2*gradient;
@@ -138,7 +139,7 @@ g = -yi/(1+exp(yi*Ai*x))*Ai' + alpha*x;
 end
 
 
-function [kappa] = get_condition_number(A,y,model_opt)
+function [kappa, beta ] = get_condition_number(A,alpha,model_opt)
 [n,d] = size(A);
 if strcmp(model_opt,'ridge_regression')
     A_temp = [A ones(n,1)];
@@ -147,7 +148,8 @@ if strcmp(model_opt,'ridge_regression')
     kappa = beta/alpha;
 elseif strcmp(model_opt,'logistic_regression')
     temp = max(sum(A .* A,2));
-    beta = temp*1
+    beta = temp/4+alpha;
+    kappa = beta/alpha;
 end
 
 end
