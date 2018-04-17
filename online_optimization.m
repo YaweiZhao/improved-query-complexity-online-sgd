@@ -139,7 +139,7 @@ g = -yi/(1+exp(yi*Ai*x))*Ai' + alpha*x;
 end
 
 
-function [kappa] = get_condition_number(A,alpha,model_opt)
+function [kappa, beta ] = get_condition_number(A,alpha,model_opt)
 [n,d] = size(A);
 if strcmp(model_opt,'ridge_regression')
     A_temp = [A ones(n,1)];
