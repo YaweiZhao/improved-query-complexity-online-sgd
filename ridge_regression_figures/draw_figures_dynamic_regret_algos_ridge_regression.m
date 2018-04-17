@@ -31,7 +31,7 @@ if strcmp(model_opt,'ridge_regression')
     
     xlabel('CPU seconds', 'fontsize', 18);
     ylabel('Dynamic regret', 'fontsize', 18 );
-    axis([1 400 1e-4 1e4]);
+    axis([1 400 1e-6 5e2]);
     %$$ \mathcal{P}_T^{\ast} $$
     h = legend('OGD', ...
         'OMGD', ...
