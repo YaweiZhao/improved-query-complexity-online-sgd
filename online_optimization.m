@@ -24,7 +24,7 @@ for i=1:T %n >> T
     
     ii = randi(n);
     if mod(i,200) == 0
-        fprintf('T = %d | i = %d | kappa = %.2f |  cpu sec = %.2f | regret = %.2f.  \n', T, i, kappa, cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
+        fprintf('i = %d | kappa = %.2f | eta=%f | cpu sec = %.2f | regret = %.2f.  \n', T, i, kappa, eta,cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
     tic;
     Ai = A(ii,:);
