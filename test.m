@@ -10,9 +10,9 @@ module = 'NAGM';
 dynamic_variation_base = 0.01;
 n_dynamic = 10;%10 in default
 %other settings
-n = 5000; %divide n_dynamic
+n = 500000; %divide n_dynamic
 d = 5;%5
-T = 5000; 
+T = 500000; 
 
 [A, y] = generate_dynamic_data_stream(n, d, model_opt,dynamic_variation_base,n_dynamic);
 
