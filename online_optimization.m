@@ -8,7 +8,7 @@ elseif strcmp(model_opt,'logistic_regression')
 end
 x_t = zeros(d,1);
 %alpha = 1e-3;%regularization constant
-alpha = 1e-7;%regularization constant
+alpha = 1e-4;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
@@ -147,8 +147,9 @@ if strcmp(model_opt,'ridge_regression')
     beta = 2*( max(eigvalue_A) + alpha/2 );%find the maximal eigen value
     kappa = beta/alpha;
 elseif strcmp(model_opt,'logistic_regression')
-    temp = max(sum(A .* A,2));
-    beta = temp/4+alpha;
+    %temp = max(sum(A .* A,2));
+    %beta = temp/4+alpha;
+    beta = 1/4+alpha;
     kappa = beta/alpha;
 end
 
