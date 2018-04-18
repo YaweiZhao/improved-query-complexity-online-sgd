@@ -147,7 +147,8 @@ if strcmp(model_opt,'ridge_regression')
     beta = 2*( max(eigvalue_A) + alpha/2 );%find the maximal eigen value
     kappa = beta/alpha;
 elseif strcmp(model_opt,'logistic_regression')
-    temp = max(sum(A .* A,2));
+    %temp = max(sum(A .* A,2));
+    temp=1;
     beta = temp/4+alpha;
     kappa = beta/alpha;
 end
