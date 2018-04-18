@@ -18,8 +18,8 @@ T = 500000;
 
 %optmization
 %ALGO = 'MOGD';%our method
-ALGO = 'OMGD';%Lijun Zhang
-%ALGO = 'OGD';%CDC 2016
+%ALGO = 'OMGD';%Lijun Zhang
+ALGO = 'OGD';%CDC 2016
 [x_seq, f_t_seq, f_seq, time_seq] = online_optimization(A, y, T, model_opt,  module, ALGO);
 
 %plot
