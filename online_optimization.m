@@ -8,7 +8,7 @@ elseif strcmp(model_opt,'logistic_regression')
 end
 x_t = zeros(d,1);
 %alpha = 1e-3;%regularization constant
-alpha = 6e-4;%regularization constant
+alpha = 5e-3;%regularization constant
 %record local minimizers
 x_seq = zeros(T,d);
 f_seq = zeros(T,1);
@@ -74,7 +74,7 @@ for i=1:T %n >> T
     
     %terminate the process
     cpu_seconds = cpu_seconds + time_seq(i,:);
-    if cpu_seconds > 401
+    if cpu_seconds > 106
         break;
     end
 end
