@@ -13,7 +13,7 @@ clear options;
 options.w_init = x_t;
 options.tol_gnorm = 1e-6;
 options.max_iter = 100;
-options.verbose = false;
+options.verbose = true;
 options.store_w = false;
 options.step_alg = 'backtracking';
 %options.step_alg = 'exact';
