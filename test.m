@@ -5,8 +5,8 @@ rng('default');
 %settings of dynamic environment
 model_opt = 'ridge_regression';
 %model_opt = 'logistic_regression';
-%module = 'GD';
-module = 'NAGM';
+module = 'GD';
+%module = 'NAGM';
 dynamic_variation_base = 0.01;
 n_dynamic = 10;%10 in default
 %other settings
