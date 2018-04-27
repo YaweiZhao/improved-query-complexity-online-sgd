@@ -1,4 +1,9 @@
-function [ x_opt, f_opt ] = nesterov_accelerated_gradient_method(x_t, Ai, yi, gamma, d, model_opt)
+function [ x_opt, f_opt ] = nesterov_accelerated_gradient_method(x_t, Ai, yi, s_hyp)
+model_opt = s_hyp.model_opt;
+gamma = s_hyp.gamma;
+d = s_hyp.d;
+
+
 
 if strcmp(model_opt,'ridge_regression')
     f = @(x) (Ai*x-yi)*transpose(Ai*x-yi) + gamma/2*(x'*x);
