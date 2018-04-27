@@ -12,7 +12,7 @@ s_hyp.n_dynamic = 50;%10 in default
 s_hyp.n = 20000; %divide n_dynamic
 s_hyp.d = 100;%5
 s_hyp.T = s_hyp.n;  
-s_hyp.kappa = 5;
+s_hyp.kappa = 2;
 s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
