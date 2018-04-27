@@ -9,7 +9,7 @@ s_hyp.dynamic_variation_base = 0.01;
 s_hyp.n_dynamic = 50;%10 in default
 
 %other settings
-s_hyp.n = 200000; %divide n_dynamic
+s_hyp.n = 20000; %divide n_dynamic
 s_hyp.d = 100;%5
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 5;
