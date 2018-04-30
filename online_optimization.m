@@ -102,7 +102,7 @@ for i=1:T %n >> T
     end_index = begin_index + s_hyp.n_unit-1;
     ii = randi([begin_index, end_index]);
     Ai = A(ii,:);
-    if strcmp(ALGO, 'MOGD-GD') || strcmp(ALGO, 'MOGD-SGD') || strcmp(ALGO, 'MOGD-SVRG')
+    if strcmp(ALGO, 'MOGD-GD') || strcmp(ALGO, 'MOGD-SGD') || strcmp(ALGO, 'MOGD-SVRG') || strcmp(ALGO, 'MOGD-SVRG-BB')
         
         direction = query_stochastic_gradient(x_t, Ai, s_hyp);
     else
