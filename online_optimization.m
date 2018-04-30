@@ -32,7 +32,7 @@ for i=1:T %n >> T
     end
     s_hyp.current_phase_id = fix(i/s_hyp.n_unit)+1;
     
-    if mod(i,100) == 0
+    if mod(i,1) == 0
         fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,cpu_seconds, sum(f_t_seq(1:i,:) - f_seq(1:i,:)));
     end
     tic;
