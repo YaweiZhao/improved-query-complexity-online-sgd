@@ -18,7 +18,8 @@ options.w_init = x_t;
 options.step_init = eta;
 options.verbose = false;
 options.store_w = false;
-[x_opt, ~] = svrg(problem, options);
+[x_opt, ~] = svrg_bb(problem, options);
+%[x_opt, ~] = svrg(problem, options);
 
 
 

@@ -88,7 +88,10 @@ for i=1:T %n >> T
                 x_t = x_t - eta2*gradient;
             end 
         elseif strcmp(ALGO, 'MOGD-SVRG')%for compositional optimization
-            % decaying eta
+            ii = randi([begin_index, end_index]);
+            Ai = A(ii,:);
+            x_t = svrg_method(x_t,  Ai, s_hyp);
+        elseif strcmp(ALGO, 'MOGD-SVRG-BB')%for compositional optimization
             ii = randi([begin_index, end_index]);
             Ai = A(ii,:);
             x_t = svrg_method(x_t,  Ai, s_hyp);
