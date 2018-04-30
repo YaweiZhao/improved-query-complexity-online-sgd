@@ -15,8 +15,8 @@ problem = general(f, g, [], [], d);
 clear options;
 % general options for optimization algorithms
 options.w_init = x_t;
-options.max_iter = 500;
-options.step_init = eta*5;
+options.max_iter = 1000;
+options.step_init = eta;
 options.verbose = false;
 options.store_w = false;
 %[x_opt, ~] = svrg_bb(problem, options);
