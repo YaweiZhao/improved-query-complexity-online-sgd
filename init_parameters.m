@@ -9,7 +9,7 @@ s_hyp.dynamic_variation_base = 0.01;
 s_hyp.n_dynamic = 50;%10 in default
 
 %other settings
-s_hyp.n = 20000; %divide n_dynamic
+s_hyp.n = 200000; %divide n_dynamic
 s_hyp.d = 100;%5
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 2;
@@ -26,7 +26,7 @@ s_hyp.ALGO = 'MOGD-SVRG';
 
 %model settings
 s_hyp.alpha = 1e1;%regularization constant
-s_hyp.eta = 1/sqrt(s_hyp.T); % for stochastic setting
+s_hyp.eta = 1e-2/sqrt(s_hyp.T); % for stochastic setting
 
 
 

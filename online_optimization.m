@@ -74,18 +74,16 @@ for i=1:T %n >> T
                 ii = randi([begin_index, end_index]);
                 Ai = A(ii,:);
                 yi = y(ii,:);
-                eta2 = eta;
                 gradient = query_gradient(x_t, Ai,yi,s_hyp);
-                x_t = x_t - eta2*gradient;
+                x_t = x_t - eta*gradient;
             end
         elseif strcmp(ALGO, 'MOGD-SGD')%for compostional optimization
         % decaying eta
-            eta2 = eta*2;
             for j = 1:s_hyp.n_unit
                 ii = randi([begin_index, end_index]);
                 Ai = A(ii,:);
                 gradient = query_stochastic_gradient(x_t, Ai,s_hyp);
-                x_t = x_t - eta2*gradient;
+                x_t = x_t - eta*gradient;
             end 
         elseif strcmp(ALGO, 'MOGD-SVRG')%for compositional optimization
             ii = randi([begin_index, end_index]);
