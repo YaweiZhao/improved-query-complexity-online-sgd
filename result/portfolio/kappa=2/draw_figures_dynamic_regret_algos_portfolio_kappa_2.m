@@ -23,8 +23,8 @@ if strcmp(model_opt,'portfolio')
     ylabel('Dynamic regret', 'fontsize', 18 );
     %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([1 32 1e-1 1e7]);
-    set(gca, 'ytick', [1e-1 1e1 1e3 1e5 1e7]);
+    axis([1 32 1e0 1e4]);
+    set(gca, 'ytick', [1e1 1e2 1e3 1e4]);
     h = legend('MOGD-SGD', ...
         'MOGD-GD', ...
         'MOGD-SVRG', ...
