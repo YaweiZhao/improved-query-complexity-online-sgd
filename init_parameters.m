@@ -22,7 +22,7 @@ s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
 %s_hyp.ALGO = 'MOGD2';%our method
-%s_hyp.ALGO = 'MOGD10';%our method
+s_hyp.ALGO = 'MOGD10';%our method
 %s_hyp.ALGO = 'OMGD';%Lijun Zhang
 %s_hyp.ALGO = 'OGD';%CDC 2016
 %s_hyp.ALGO = 'MOGD-SGD';%MOGD equppied SGD
@@ -31,9 +31,9 @@ s_hyp = generate_dynamic_data_stream(s_hyp);
 %s_hyp.ALGO = 'MOGD-SVRG-BB';
 
 %model settings
-s_hyp.alpha = 1e0;%regularization constant
+s_hyp.alpha = 1e1;%regularization constant
 %s_hyp.eta = 1e-2/sqrt(s_hyp.T); % for stochastic setting
-s_hyp.eta = 1e-10;
+s_hyp.eta = 1e-5;
 
 
 

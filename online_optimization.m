@@ -124,7 +124,7 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    if mod(i,50) == 0
+    if mod(i,100) == 0
         counter = fix(i/50);
         time_seq(counter,:) = toc;%record time for ploting lines
         fprintf('%s, begin recording...\n',s_hyp.ALGO);
@@ -134,7 +134,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if sum(time_seq) >= 66
+    if sum(time_seq) >= 136
         break;
     end
 end
