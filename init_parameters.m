@@ -13,7 +13,7 @@ s_hyp.n_dynamic = 500;%
 %s_hyp.n_dynamic = 10;%stochastic
 %other settings
 s_hyp.n = 20000; %divide n_dynamic
-s_hyp.d = 5;
+s_hyp.d = 3;
 %s_hyp.d = 100;
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 1e3;
