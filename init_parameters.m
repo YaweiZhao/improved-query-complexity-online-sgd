@@ -17,7 +17,7 @@ s_hyp.d = 3;
 %s_hyp.d = 100;
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 1e3;
-s_hyp.scale_D = 1e-2;
+s_hyp.scale_D = 1e-3;
 s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
