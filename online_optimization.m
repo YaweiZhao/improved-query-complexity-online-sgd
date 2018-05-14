@@ -27,8 +27,8 @@ cpu_seconds = 0;
 kappa= get_condition_number(s_hyp);
 tic;
 for i=1:T %n >> T
-    s_hyp.D_1 =  1e-1*i;
-    s_hyp.D_2 = 1e-1*sqrt(i);
+    s_hyp.D_1 =  s_hyp.scale_D*i;
+    s_hyp.D_2 = s_hyp.scale_D*sqrt(i);
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
@@ -46,14 +46,14 @@ for i=1:T %n >> T
             for j = 1:fix(kappa) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2);%projected gradient
+                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OMGD')
             for j = 1:fix(kappa) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2);%projected gradient
+                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
@@ -61,13 +61,13 @@ for i=1:T %n >> T
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2);%projected gradient
+                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         %use GDLibrary 
         [ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,s_hyp); 
-        x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2);%projected gradient
+        x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
     elseif strcmp(modular, 'STOCASTIC')
         begin_index = (s_hyp.current_phase_id-1)*s_hyp.n_unit+1;
         end_index = begin_index + s_hyp.n_unit-1;
@@ -110,7 +110,7 @@ for i=1:T %n >> T
         direction = query_gradient(x_t, Ai, yi, s_hyp);
     end
     x_t = x_t - eta*direction;
-    x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2);%projected gradient
+    x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
     
     % compute the local minimizer 
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
@@ -133,11 +133,15 @@ end
 
 end
 
-function [x_t] = get_projected_gradient(x_t, D_1, D_2)
-if norm(x_t) > D_1 %project gradient
+function [x_t] = get_projected_gradient(x_t, D_1, D_2,X,i)
+Q_temp = eye(i) - diag(ones(i-1,1),1);
+Q = Q_temp(1:i-1,:);
+consumed_D_1 = sum(norms(Q*X,2,2));
+consumed_D_2 = sum(transpose(norms(Q*X,2,2))*norms(Q*X,2,2));
+if norm(x_t) > D_1 - consumed_D_1  %project gradient
     x_t = x_t*D_1/norm(x_t);
 end
-if x_t'*x_t > D_2%project gradient
+if x_t'*x_t > D_2 - consumed_D_2%project gradient
     x_t = x_t*sqrt(D_2)/norm(x_t);
 end
 
