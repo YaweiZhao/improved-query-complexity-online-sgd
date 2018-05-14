@@ -1,19 +1,19 @@
 function[] = drqw_figures_orr_scale_1e2_kappa_4e4()
 %scale=1e2, kappa=4e4
-loss_seq_OGD = load('./OGD/loss_seq.txt','-ascii');
-time_seq_OGD = load('./OGD/time_seq.txt','-ascii');
+loss_seq_OGD = load('./OGD/loss_seq_OGD.txt','-ascii');
+time_seq_OGD = load('./OGD/time_seq_OGD.txt','-ascii');
 [new_time_seq_OGD, new_loss_seq_OGD] = get_new_seqs(time_seq_OGD,loss_seq_OGD);
-loss_seq_OMGD = load('./OMGD/loss_seq.txt','-ascii');
-time_seq_OMGD = load('./OMGD/time_seq.txt','-ascii');
+loss_seq_OMGD = load('./OMGD/loss_seq_OMGD.txt','-ascii');
+time_seq_OMGD = load('./OMGD/time_seq_OMGD.txt','-ascii');
 [new_time_seq_OMGD, new_loss_seq_OMGD] = get_new_seqs(time_seq_OMGD,loss_seq_OMGD);
-loss_seq_MOGD2 = load('./MOGD2/loss_seq.txt','-ascii');
+loss_seq_MOGD2 = load('./MOGD2/loss_seq_MOGD2.txt','-ascii');
 %sum_f_seq_MOGD = [sum_f_seq_MOGD; sum_f_seq_MOGD(length(sum_f_seq_MOGD))*ones(2,1)];
-time_seq_MOGD2 = load('./MOGD2/time_seq.txt','-ascii');
+time_seq_MOGD2 = load('./MOGD2/time_seq_MOGD2.txt','-ascii');
 [new_time_seq_MOGD2, new_loss_seq_MOGD2] = get_new_seqs(time_seq_MOGD2,loss_seq_MOGD2);
-loss_seq_MOGD4 = load('./MOGD4/loss_seq.txt','-ascii');
+loss_seq_MOGD10 = load('./MOGD10/loss_seq.txt','-ascii');
 %sum_f_seq_NAGM = [sum_f_seq_NAGM; sum_f_seq_NAGM(length(sum_f_seq_NAGM))*ones(11,1)];
-time_seq_MOGD4 = load('./MOGD4/time_seq.txt','-ascii');
-[new_time_seq_MOGD4, new_loss_seq_MOGD4] = get_new_seqs(time_seq_MOGD4,loss_seq_MOGD4);
+time_seq_MOGD10 = load('./MOGD10/time_seq.txt','-ascii');
+[new_time_seq_MOGD10, new_loss_seq_MOGD10] = get_new_seqs(time_seq_MOGD10,loss_seq_MOGD10);
 
 
 model_opt = 'ridge_regression';
@@ -28,7 +28,7 @@ if strcmp(model_opt,'ridge_regression')
     
     semilogy(new_time_seq_MOGD2, new_loss_seq_MOGD2, '-.g','LineWidth', 2);
     hold on;
-    semilogy(new_time_seq_MOGD4, new_loss_seq_MOGD4, ':k','LineWidth', 2);
+    semilogy(new_time_seq_MOGD10, new_loss_seq_MOGD10, ':k','LineWidth', 2);
     hold on;
     
     
@@ -41,7 +41,7 @@ if strcmp(model_opt,'ridge_regression')
     h = legend('OGD($10^{-6}$)', ...
         'OMGD($10^{-6}$)', ...
         'MOGD($2\times 10^{-6}$)', ...
-        'MOGD($4\times 10^{-6}$)', ...
+        'MOGD($\times 10^{-5}$)', ...
         'Location', 'southeast');
     
     set(h,'Interpreter','latex');
