@@ -125,7 +125,7 @@ for i=1:T %n >> T
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
     interval=100;
-    if strcmp(ALGO, 'MOGD') || strcmp(ALGO, 'OMGD')
+    if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = toc;%record time for ploting lines
