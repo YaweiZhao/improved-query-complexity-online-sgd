@@ -65,7 +65,7 @@ for i=1:T %n >> T
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(kappa/50) %
+            for j = 1:fix(kappa/20) %
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
@@ -124,8 +124,8 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    if mod(i,20) == 0
-        counter = fix(i/20);
+    if mod(i,50) == 0
+        counter = fix(i/50);
         time_seq(counter,:) = toc;%record time for ploting lines
         fprintf('%s, begin recording...\n',s_hyp.ALGO);
         loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
