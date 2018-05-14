@@ -8,8 +8,8 @@ s_hyp.model_opt = 'ridge_regression';
 s_hyp.modular = 'GD';
 
 s_hyp.dynamic_variation_base = 0.01;
-%s_hyp.n_dynamic = 10;%
-s_hyp.n_dynamic = 10;%stochastic
+s_hyp.n_dynamic = 50;%
+%s_hyp.n_dynamic = 10;%stochastic
 %other settings
 s_hyp.n = 200000; %divide n_dynamic
 s_hyp.d = 5;
