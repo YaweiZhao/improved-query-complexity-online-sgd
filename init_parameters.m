@@ -31,7 +31,7 @@ s_hyp.ALGO = 'MOGD10';%our method
 %s_hyp.ALGO = 'MOGD-SVRG-BB';
 
 %model settings
-s_hyp.alpha = 1e1;%regularization constant
+s_hyp.alpha = 1e2;%regularization constant
 %s_hyp.eta = 1e-2/sqrt(s_hyp.T); % for stochastic setting
 s_hyp.eta = 1e-5;
 
