@@ -5,7 +5,8 @@ s_hyp = struct();
 %s_hyp.model_opt = 'portfolio';
 %s_hyp.modular = 'STOCASTIC';
 s_hyp.model_opt = 'ridge_regression';
-s_hyp.modular = 'GD';
+%s_hyp.modular = 'GD';
+s_hyp.modular = 'NAGM';
 
 s_hyp.dynamic_variation_base = 0.01;
 s_hyp.n_dynamic = 50;%
@@ -20,8 +21,8 @@ s_hyp.scale_D = 1e2;
 s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
-%s_hyp.ALGO = 'MOGD';%our method
-s_hyp.ALGO = 'OMGD';%Lijun Zhang
+s_hyp.ALGO = 'MOGD';%our method
+%s_hyp.ALGO = 'OMGD';%Lijun Zhang
 %s_hyp.ALGO = 'OGD';%CDC 2016
 %s_hyp.ALGO = 'MOGD-SGD';%MOGD equppied SGD
 %s_hyp.ALGO = 'MOGD-GD';
