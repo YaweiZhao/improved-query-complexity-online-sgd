@@ -43,7 +43,7 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD2')
             delta = 2;%default
             eta2 = eta*delta;
-            for j = 1:fix(kappa/100) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
@@ -51,7 +51,7 @@ for i=1:T %n >> T
         elseif strcmp(ALGO, 'MOGD4')
             delta = 4;%larger step size
             eta2 = eta*delta;
-            for j = 1:fix(kappa/100) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
@@ -65,7 +65,7 @@ for i=1:T %n >> T
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(kappa/200) %
+            for j = 1:fix(kappa/50) %
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
