@@ -128,20 +128,20 @@ for i=1:T %n >> T
     if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
-            time_seq(counter,:) = toc;%record time for ploting lines
+            time_seq(counter,:) = i;
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
-            fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(counter,:));
+            fprintf('i = %d | kappa = %.2f | eta=%.10f  | regret = %.10f.  \n', i, kappa, eta, loss_seq(counter,:));
             tic;
         end
     elseif strcmp(ALGO, 'OGD')
         interval = 5*interval; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
-            time_seq(counter,:) = toc;%record time for ploting lines
+            time_seq(counter,:) = i;
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
-            fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(counter,:));
+            fprintf('i = %d | kappa = %.2f | eta=%.10f | regret = %.10f.  \n', i, kappa, eta, loss_seq(counter,:));
             tic;
         end
     end
