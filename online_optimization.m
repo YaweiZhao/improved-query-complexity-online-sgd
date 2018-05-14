@@ -147,7 +147,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if i>5010
+    if i>1950
         break;
     end
 end
