@@ -136,7 +136,7 @@ for i=1:T %n >> T
         end
     elseif strcmp(ALGO, 'OGD')
         interval = 5*interval; 
-        if mod(i,interval*2) == 0
+        if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = toc;%record time for ploting lines
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
