@@ -5,8 +5,8 @@ s_hyp = struct();
 %s_hyp.model_opt = 'portfolio';
 %s_hyp.modular = 'STOCASTIC';
 s_hyp.model_opt = 'ridge_regression';
-%s_hyp.modular = 'GD';
-s_hyp.modular = 'NAGM';
+s_hyp.modular = 'GD';
+%s_hyp.modular = 'NAGM';
 
 s_hyp.dynamic_variation_base = 0.01;
 s_hyp.n_dynamic = 50;%
