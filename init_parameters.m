@@ -9,14 +9,14 @@ s_hyp.modular = 'GD';
 
 s_hyp.dynamic_variation_base = 0.01;
 %s_hyp.n_dynamic = 10;%
-s_hyp.n_dynamic = 50;%stochastic
+s_hyp.n_dynamic = 10;%stochastic
 %other settings
 s_hyp.n = 200000; %divide n_dynamic
 s_hyp.d = 5;
 %s_hyp.d = 100;
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 1e3;
-s_hyp.scale_D = 1e3;
+s_hyp.scale_D = 1e2;
 s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization

@@ -43,13 +43,13 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD')
             delta = 2;
             eta2 = eta*delta;
-            for j = 1:fix(kappa) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(kappa) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
@@ -57,7 +57,7 @@ for i=1:T %n >> T
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(kappa/10) %
+            for j = 1:fix(kappa/100) %
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
@@ -116,8 +116,8 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    if mod(i,5) == 0
-        counter = fix(i/5);
+    if mod(i,10) == 0
+        counter = fix(i/10);
         time_seq(counter,:) = toc;%record time for ploting lines
         loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
         fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), sum(loss_seq));
