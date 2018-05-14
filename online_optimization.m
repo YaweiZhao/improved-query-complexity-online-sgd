@@ -32,7 +32,7 @@ for i=1:T %n >> T
     if i>n
         fprintf('ERROR | T = %d  is larger than n = %d. \n', T, n);
     end
-    s_hyp.current_phase_id = fix(i/s_hyp.n_unit)+1;
+    %s_hyp.current_phase_id = fix(i/s_hyp.n_unit)+1;
     
     %ii = randi(n);
     ii = i;
