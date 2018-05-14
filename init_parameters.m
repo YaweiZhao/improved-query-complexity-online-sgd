@@ -33,7 +33,7 @@ s_hyp = generate_dynamic_data_stream(s_hyp);
 %model settings
 s_hyp.alpha = 1e1;%regularization constant
 %s_hyp.eta = 1e-2/sqrt(s_hyp.T); % for stochastic setting
-s_hyp.eta = 1e-9;
+s_hyp.eta = 1e-10;
 
 
 
