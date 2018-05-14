@@ -21,8 +21,8 @@ s_hyp.scale_D = 1e2;
 s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
-%s_hyp.ALGO = 'MOGD2';%our method
-s_hyp.ALGO = 'MOGD10';%our method
+s_hyp.ALGO = 'MOGD2';%our method
+%s_hyp.ALGO = 'MOGD10';%our method
 %s_hyp.ALGO = 'OMGD';%Lijun Zhang
 %s_hyp.ALGO = 'OGD';%CDC 2016
 %s_hyp.ALGO = 'MOGD-SGD';%MOGD equppied SGD
