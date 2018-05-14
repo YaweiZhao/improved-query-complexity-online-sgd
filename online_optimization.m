@@ -127,7 +127,7 @@ for i=1:T %n >> T
     if mod(i,20) == 0
         counter = fix(i/20);
         time_seq(counter,:) = toc;%record time for ploting lines
-        fprintf('begin recording...\n');
+        fprintf('%s, begin recording...\n',s_hyp.ALGO);
         loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
         fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(counter,:));
         tic;
