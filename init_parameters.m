@@ -8,7 +8,7 @@ s_hyp.model_opt = 'ridge_regression';
 s_hyp.modular = 'GD';
 %s_hyp.modular = 'NAGM';
 
-s_hyp.dynamic_variation_base = 0.001;
+s_hyp.dynamic_variation_base = 0.01;
 s_hyp.n_dynamic = 500;%
 %s_hyp.n_dynamic = 10;%stochastic
 %other settings
