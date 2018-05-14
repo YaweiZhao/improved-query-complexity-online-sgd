@@ -49,7 +49,7 @@ for i=1:T %n >> T
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'MOGD10')
-            delta = 10;%larger step size
+            delta = 2;%larger step size
             eta2 = eta*delta;
             for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
