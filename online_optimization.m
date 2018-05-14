@@ -135,7 +135,7 @@ for i=1:T %n >> T
             tic;
         end
     elseif strcmp(ALGO, 'OGD')
-        interval = 2*interval; 
+        interval = interval; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = i;
