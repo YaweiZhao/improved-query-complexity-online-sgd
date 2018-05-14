@@ -134,7 +134,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if sum(time_seq) > 136
+    if sum(time_seq) > 66
         break;
     end
 end
