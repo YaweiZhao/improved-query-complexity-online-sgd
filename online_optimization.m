@@ -124,8 +124,8 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    if mod(i,200) == 0
-        counter = fix(i/200);
+    if mod(i,1000) == 0
+        counter = fix(i/1000);
         time_seq(counter,:) = toc;%record time for ploting lines
         loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
         fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(counter,:));
