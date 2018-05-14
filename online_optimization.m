@@ -57,7 +57,7 @@ for i=1:T %n >> T
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OMGD')
-            for j = 1:fix(kappa) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
@@ -134,7 +134,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if i>=500
+    if sum(time_seq) >= 66
         break;
     end
 end
