@@ -65,7 +65,7 @@ for i=1:T %n >> T
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
-            for j = 1:fix(kappa/20) %
+            for j = 1:fix(kappa/50) %
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
@@ -134,7 +134,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if sum(time_seq) > 66
+    if i>=500
         break;
     end
 end
