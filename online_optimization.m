@@ -121,7 +121,7 @@ for i=1:T %n >> T
         counter = fix(i/10);
         time_seq(counter,:) = toc;%record time for ploting lines
         loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
-        fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(i,:));
+        fprintf('i = %d | kappa = %.2f | eta=%.10f | cpu sec = %.2f | regret = %.10f.  \n', i, kappa, eta,sum(time_seq), loss_seq(counter,:));
         tic;
     end
     %terminate the process
