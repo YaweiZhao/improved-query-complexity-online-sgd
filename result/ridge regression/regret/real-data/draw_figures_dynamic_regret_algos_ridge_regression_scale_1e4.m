@@ -1,13 +1,13 @@
 function[] = drqw_figures_orr_scale_1e4_kappa_1500()
-%scale: 1e0, cpu-small
-new_time_seq_OGD = [20];
-new_loss_seq_OGD = [ ];
+%scale: 1e0, cpu-small? kappa=1.5e5
+new_time_seq_OGD = [21 42 63 85 107 130];
+new_loss_seq_OGD = [ 8514 18256 26690 36539 44629 53216];
 
-new_time_seq_OMGD = 100:100:600;
-new_loss_seq_OMGD = [26903 34847 38605 41199 44114 46617];
+new_time_seq_OMGD = [21 43 65 88 110 133];
+new_loss_seq_OMGD = [785 1556 2323 3093 3811 4582];
 
-new_time_seq_MOGD10 = 100:100:600;
-new_loss_seq_MOGD10 = [25871 33395 36775 38841 41264 43342];
+new_time_seq_MOGD10 = [26 51 76 103 127];
+new_loss_seq_MOGD10 = [746 1474 2186 2912 3581 ];
 % 
 % %scale: 1e2, cpu-small
 % new_time_seq_OGD = 100:100:800;
@@ -25,11 +25,11 @@ model_opt = 'ridge_regression';
 if strcmp(model_opt,'ridge_regression')
     
     %var = 0.01
-    plot(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
+    semilogy(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
     hold on;
-    plot(new_time_seq_OMGD, new_loss_seq_OMGD, '--b','LineWidth', 2);
+    semilogy(new_time_seq_OMGD, new_loss_seq_OMGD, '--b','LineWidth', 2);
     hold on;
-    plot(new_time_seq_MOGD10, new_loss_seq_MOGD10, ':k','LineWidth', 2);
+    semilogy(new_time_seq_MOGD10, new_loss_seq_MOGD10, ':k','LineWidth', 2);
     hold on;
 %     semilogy(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
 %     hold on;
@@ -42,16 +42,16 @@ if strcmp(model_opt,'ridge_regression')
 %     hold on;
     
     
-    xlabel('Iterations', 'fontsize', 18);
+    xlabel('CPU seconds', 'fontsize', 18);
     ylabel('Dynamic regret', 'fontsize', 18 );
     %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([100 600 1e4 2.5e5]);
+    axis([25 126 1e2 1e5]);
     %set(gca, 'ytick', [1e-1 1e-1 1e1 1e3]);
     h = legend('OGD', ...
         'OMGD', ...
         'MOGD', ...
-        'Location', 'northwest');
+        'Location', 'southeast');
     
     set(h,'Interpreter','latex');
     
