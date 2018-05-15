@@ -18,8 +18,8 @@ s_hyp.d = 3;
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 1e3;
 s_hyp.scale_D = 1e2;
-s_hyp = load_data( 'cpu-small.mat', s_hyp);
-%s_hyp = generate_dynamic_data_stream(s_hyp);
+%s_hyp = load_data( 'cpu-small.mat', s_hyp);
+s_hyp = generate_dynamic_data_stream(s_hyp);
 
 %optmization
 s_hyp.ALGO = 'MOGD10';%our method
