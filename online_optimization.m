@@ -128,7 +128,7 @@ for i=1:T %n >> T
     if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
-            time_seq(counter,:) = i;
+            time_seq(counter,:) = toc;%i
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
             fprintf('i = %d | kappa = %.2f | time %.2f| eta=%.10f  | regret = %.10f.  \n', i, kappa, sum(time_seq), eta, loss_seq(counter,:));
@@ -138,7 +138,7 @@ for i=1:T %n >> T
         interval = interval*2; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
-            time_seq(counter,:) = i;
+            time_seq(counter,:) = toc;%i
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
             fprintf('i = %d | kappa = %.2f |time: %.2f | eta=%.10f | regret = %.10f.  \n', i, kappa, sum(time_seq), eta, loss_seq(counter,:));
