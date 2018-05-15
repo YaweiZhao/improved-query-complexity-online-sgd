@@ -43,7 +43,7 @@ for i=1:T %n >> T
         if strcmp(ALGO, 'MOGD2')
             delta = 2;%default
             eta2 = eta*delta;
-            for j = 1:fix(kappa/100) % K: iterate n/10 for GD
+            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
                 x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
@@ -124,7 +124,7 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    interval=200;
+    interval=50;
     if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
