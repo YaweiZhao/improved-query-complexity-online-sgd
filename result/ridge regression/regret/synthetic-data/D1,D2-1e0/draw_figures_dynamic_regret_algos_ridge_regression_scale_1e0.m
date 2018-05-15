@@ -8,15 +8,16 @@ new_loss_seq_OMGD = [26903 34847 38605 41199 44114 46617];
 
 new_time_seq_MOGD10 = 100:100:600;
 new_loss_seq_MOGD10 = [25871 33395 36775 38841 41264 43342];
-% %scale: 1e-2
+% 
+% %scale: 1e2, cpu-small
 % new_time_seq_OGD = 100:100:800;
-% new_loss_seq_OGD = [1.88 4 5.7 7.7 9.38 11.1 12.65 14.39];
+% new_loss_seq_OGD = [69316 108332 144153 179877 215213 250288 284156 317853];
 % 
 % new_time_seq_OMGD = 100:100:800;
-% new_loss_seq_OMGD = [1.36 2.97 4.27 5.7 7.1 8.44 9.66 11];
+% new_loss_seq_OMGD = [35404 68463 102184 135872 169792 203045 235843 269783];
 % 
 % new_time_seq_MOGD10 = 100:100:800;
-% new_loss_seq_MOGD10 = [1 2.22 3.23 4.33 5.37 6.4 7.36 8.4];
+% new_loss_seq_MOGD10 = [32236 64014 96196 128676 161190 193264 225063 257446];
 
 
 
@@ -24,11 +25,11 @@ model_opt = 'ridge_regression';
 if strcmp(model_opt,'ridge_regression')
     
     %var = 0.01
-    semilogy(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
+    plot(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
     hold on;
-    semilogy(new_time_seq_OMGD, new_loss_seq_OMGD, '--b','LineWidth', 2);
+    plot(new_time_seq_OMGD, new_loss_seq_OMGD, '--b','LineWidth', 2);
     hold on;
-    semilogy(new_time_seq_MOGD10, new_loss_seq_MOGD10, ':k','LineWidth', 2);
+    plot(new_time_seq_MOGD10, new_loss_seq_MOGD10, ':k','LineWidth', 2);
     hold on;
 %     semilogy(new_time_seq_OGD, new_loss_seq_OGD, '-r','LineWidth', 2);
 %     hold on;
@@ -45,12 +46,12 @@ if strcmp(model_opt,'ridge_regression')
     ylabel('Dynamic regret', 'fontsize', 18 );
     %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([100 600 1e4 1e6]);
+    axis([100 600 1e4 2.5e5]);
     %set(gca, 'ytick', [1e-1 1e-1 1e1 1e3]);
     h = legend('OGD', ...
         'OMGD', ...
         'MOGD', ...
-        'Location', 'southeast');
+        'Location', 'northwest');
     
     set(h,'Interpreter','latex');
     

@@ -135,7 +135,7 @@ for i=1:T %n >> T
             tic;
         end
     elseif strcmp(ALGO, 'OGD')
-        interval = interval; 
+        interval = interval*5; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = i;
@@ -147,7 +147,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if i>1550
+    if sum(time_seq)>136%i>1550
         break;
     end
     
