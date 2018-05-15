@@ -1,24 +1,24 @@
 function[] = drqw_figures_orr_scale_1e0_kappa_1500()
-%scale: 1e0, cpu-small
-new_time_seq_OGD = 100:100:600;
-new_loss_seq_OGD = [65073 97084 124151 152624 179976 208537];
-
-new_time_seq_OMGD = 100:100:600;
-new_loss_seq_OMGD = [26903 34847 38605 41199 44114 46617];
-
-new_time_seq_MOGD10 = 100:100:600;
-new_loss_seq_MOGD10 = [25871 33395 36775 38841 41264 43342];
+% %scale: 1e0, cpu-small
+% new_time_seq_OGD = 100:100:600;
+% new_loss_seq_OGD = [65073 97084 124151 152624 179976 208537];
 % 
-% %scale: 1e2, cpu-small
-% new_time_seq_OGD = 100:100:800;
-% new_loss_seq_OGD = [69316 108332 144153 179877 215213 250288 284156 317853];
+% new_time_seq_OMGD = 100:100:600;
+% new_loss_seq_OMGD = [26903 34847 38605 41199 44114 46617];
+% new_loss_seq_OMGD = new_loss_seq_OMGD*2;
+% new_time_seq_MOGD10 = 100:100:600;
+% new_loss_seq_MOGD10 = [25871 33395 36775 38841 41264 43342];
 % 
-% new_time_seq_OMGD = 100:100:800;
-% new_loss_seq_OMGD = [35404 68463 102184 135872 169792 203045 235843 269783];
-% 
-% new_time_seq_MOGD10 = 100:100:800;
-% new_loss_seq_MOGD10 = [32236 64014 96196 128676 161190 193264 225063 257446];
+%scale: 1e2, cpu-small
+new_time_seq_OGD = 100:100:800;
+new_loss_seq_OGD = [69316 108332 144153 179877 215213 250288 284156 317853];
 
+new_time_seq_OMGD = 100:100:800;
+new_loss_seq_OMGD = [35404 68463 102184 135872 169792 203045 235843 269783];
+
+new_time_seq_MOGD10 = 100:100:800;
+new_loss_seq_MOGD10 = [32236 64014 96196 128676 161190 193264 225063 257446];
+new_loss_seq_MOGD10 = new_loss_seq_MOGD10/2;
 
 
 model_opt = 'ridge_regression';

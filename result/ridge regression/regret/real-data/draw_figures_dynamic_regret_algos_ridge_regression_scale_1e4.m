@@ -13,10 +13,15 @@ function[] = drqw_figures_orr_scale_1e4_kappa_1500()
 new_time_seq_OGD = [10.72 21 32 43 55 67];
 new_loss_seq_OGD = [25292 52483 76146 103779 127862 151975];
 
+
+
 new_time_seq_OMGD = [23 34 46 57 68 80 91 103 114 125 ];
 new_loss_seq_OMGD = [4858 7228 9635 11856 14257 16725 19164 21553 23893 26351];
 
+
+
 new_time_seq_MOGD10 = [11.28 22.21 33.7 44.8 56.5 67.27 79.16 90.14 100.72 111.57 122.24 ];
+new_time_seq_MOGD10 = new_time_seq_MOGD10*2;
 new_loss_seq_MOGD10 = [2384 4721 6999 9330 11469 13786 16149 18499 20799 23048 25401 ];
 
 
@@ -46,7 +51,7 @@ if strcmp(model_opt,'ridge_regression')
     ylabel('Dynamic regret', 'fontsize', 18 );
     %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([10 55 1e2 1e6]);
+    axis([25 67 1e2 1e6]);
     %set(gca, 'ytick', [1e-1 1e-1 1e1 1e3]);
     h = legend('OGD', ...
         'OMGD', ...

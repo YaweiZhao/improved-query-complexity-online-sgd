@@ -4,7 +4,7 @@ s_hyp = struct();
 %settings of dynamic environment
 %s_hyp.model_opt = 'portfolio';
 %s_hyp.modular = 'STOCASTIC';
-s_hyp.model_opt = 'ridge_regression';
+s_hyp.model_opt = 'logistic_regression';
 s_hyp.modular = 'GD';
 %s_hyp.modular = 'NAGM';
 

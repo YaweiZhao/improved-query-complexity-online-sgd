@@ -267,11 +267,7 @@ model_opt = s_hyp.model_opt;
 d = s_hyp.d;
 A_temp = s_hyp.A;
 y_temp = s_hyp.y;
-if strcmp(model_opt,'ridge_regression')
-    A_temp = [A_temp(1:i,:) ones(i,1)];
-elseif strcmp(model_opt,'logistic_regression')
-    A_temp = A_temp(1:i,:);
-end
+A_temp = [A_temp(1:i,:) ones(i,1)];
 y_temp = y_temp(1:i,:);
 Q_temp = eye(i) - diag(ones(i-1,1),1);
 Q = Q_temp(1:i-1,:);
@@ -288,15 +284,17 @@ if strcmp(model_opt,'ridge_regression')
     obj_our = temp2' * temp2 + alpha/2*sum(sum(X .* X,2));
     loss = obj_our - cvx_optval;
 elseif strcmp(model_opt,'logistic_regression')
-    cvx_begin quiet
+    if strcmp(model_opt,'ridge_regression')
+        cvx_begin quiet
         variable X_opt(i,d)
-        obj_opt = sum(log(1+exp(-y_temp .* sum(A_temp .* X_opt,2)))) + alpha/2*sum(sum(X_opt .* X_opt));
+        temp1 = (sum(A_temp .* X_opt,2) - y_temp);
+        obj_opt = temp1' * temp1 + alpha/2*sum(sum(X_opt .* X_opt,2));
         minimize (obj_opt)
         subject to 
             [sum(norms(Q*X_opt,2,2)); sum(sum((Q*X_opt) .* (Q*X_opt)))] <= [s_hyp.D_1; s_hyp.D_2]
-    cvx_end
-    obj_our = sum(log(1+exp(-y_temp .* sum(A_temp .* X,2)))) + alpha/2*sum(sum(X .* X));
-    loss = obj_our - cvx_optval;
+        cvx_end
+    end
+    f_t_opt = sum(log(1+exp(-y .* sum(A .* X,2)))) + alpha/2*sum(sum(X .* X));  
 elseif strcmp(model_opt,'portfolio')
     f_t_opt = -Ai*x_t+(Ai*x_t - ones(1,n)*A*x_t/n)^2 + alpha/2*(x_t'*x_t);
 end
