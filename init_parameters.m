@@ -17,7 +17,7 @@ s_hyp.d = 3;
 %s_hyp.d = 100;
 s_hyp.T = s_hyp.n;  
 s_hyp.kappa = 1e3;
-s_hyp.scale_D = 1e0;
+s_hyp.scale_D = 1e2;
 s_hyp = load_data( 'cpu-small.mat', s_hyp);
 %s_hyp = generate_dynamic_data_stream(s_hyp);
 
@@ -31,9 +31,9 @@ s_hyp.ALGO = 'MOGD10';%our method
 %s_hyp.ALGO = 'MOGD-SVRG-BB';
 
 %model settings
-s_hyp.alpha = 1e-4;%regularization constant
+s_hyp.alpha = 1e-3;%regularization constant
 %s_hyp.eta = 1e-2/sqrt(s_hyp.T); % for stochastic setting
-s_hyp.eta = 1e-5;
+s_hyp.eta = 1e-7;
 
 
 
