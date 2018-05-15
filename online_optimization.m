@@ -46,14 +46,14 @@ for i=1:T %n >> T
             for j = 1:fix(kappa) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
+                %x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OMGD')
             for j = 1:fix(kappa) % K: iterate n/10 for GD
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
+                %x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         elseif strcmp(ALGO, 'OGD')
             %do nothing, yes! do nothing
@@ -61,12 +61,12 @@ for i=1:T %n >> T
                 eta2 = eta;
                 gradient = query_gradient(x_t, Ai, yi,s_hyp);
                 x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
+               % x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
             end
         end
     elseif strcmp(modular, 'NAGM')%Nesterov accelerated gradient methods
         %use GDLibrary 
-        %[ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,s_hyp); 
+        [ x_t, ~ ] = nesterov_accelerated_gradient_method(x_t, Ai, yi,s_hyp); 
         %x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
     elseif strcmp(modular, 'STOCASTIC')
         begin_index = (s_hyp.current_phase_id-1)*s_hyp.n_unit+1;
