@@ -20,6 +20,7 @@ function[] = drqw_figures_orr_scale_1e2_kappa_4e4()
 % 
 % new_time_seq_OMGD = 100:100:800;
 % new_loss_seq_OMGD = [1.65 3.65 5.29 7 8.8 10.5 12.07 13.8];
+% new_loss_seq_OMGD = new_loss_seq_OMGD/2;
 % 
 % new_time_seq_MOGD10 = 100:100:800;
 % new_loss_seq_MOGD10 = [0.64 1.46 2.14 2.87 3.6 4.32 4.95 5.67];
@@ -32,18 +33,18 @@ function[] = drqw_figures_orr_scale_1e2_kappa_4e4()
 % 
 % new_time_seq_MOGD10 = 100:100:800;
 % new_loss_seq_MOGD10 = [1 2.22 3.23 4.33 5.37 6.4 7.36 8.4];
-
-% %scale: 1e0
-new_time_seq_OGD = 100:100:800;
-new_loss_seq_OGD = [2.17 4.69 6.7 9 11.14 13.24 15 17.17];
-
-new_time_seq_OMGD = 100:100:800;
-new_loss_seq_OMGD = [1.65 3.65 5.29 7 8.85 10.56 12.07 14];
-
-new_time_seq_MOGD10 = 100:100:800;
-new_loss_seq_MOGD10 = [1.3 2.9 4.25 5.64 7.13 8.54 9.77 11.19];
-
-
+% 
+% % %scale: 1e0
+% new_time_seq_OGD = 100:100:800;
+% new_loss_seq_OGD = [2.17 4.69 6.7 9 11.14 13.24 15 17.17];
+% 
+% new_time_seq_OMGD = 100:100:800;
+% new_loss_seq_OMGD = [1.65 3.65 5.29 7 8.85 10.56 12.07 14];
+% 
+% new_time_seq_MOGD10 = 100:100:800;
+% new_loss_seq_MOGD10 = [1.3 2.9 4.25 5.64 7.13 8.54 9.77 11.19];
+% 
+% 
 
 model_opt = 'ridge_regression';
 if strcmp(model_opt,'ridge_regression')
