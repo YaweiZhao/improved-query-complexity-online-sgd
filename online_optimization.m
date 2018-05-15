@@ -40,16 +40,8 @@ for i=1:T %n >> T
     yi = y(ii,:);
     %optimization modular
     if strcmp(modular, 'GD')
-        if strcmp(ALGO, 'MOGD2')
-            delta = 2;%default
-            eta2 = eta*delta;
-            for j = 1:fix(kappa/10) % K: iterate n/10 for GD
-                gradient = query_gradient(x_t, Ai, yi, s_hyp);
-                x_t = x_t - eta2*gradient;
-                x_t = get_projected_gradient(x_t, s_hyp.D_1, s_hyp.D_2,x_seq(1:i-1,:),i-1);%projected gradient
-            end
-        elseif strcmp(ALGO, 'MOGD10')
-            delta = 2;%larger step size
+        if strcmp(ALGO, 'MOGD10')
+            delta = 5;%larger step size
             eta2 = eta*delta;
             for j = 1:fix(kappa/10) % K: iterate n/10 for GD
                 gradient = query_gradient(x_t, Ai, yi, s_hyp);
