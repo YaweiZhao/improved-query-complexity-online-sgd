@@ -124,30 +124,30 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    interval=20;
+    interval=10;
     if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = i;
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
-            fprintf('i = %d | kappa = %.2f | eta=%.10f  | regret = %.10f.  \n', i, kappa, eta, loss_seq(counter,:));
+            fprintf('i = %d | kappa = %.2f | time %.2f| eta=%.10f  | regret = %.10f.  \n', i, kappa, sum(time_seq), eta, loss_seq(counter,:));
             tic;
         end
     elseif strcmp(ALGO, 'OGD')
-        interval = interval*5; 
+        interval = interval*2; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = i;
             fprintf('%s, begin recording...\n',s_hyp.ALGO);
             loss_seq(counter,:) = get_local_loss_weak_assumption(x_seq(1:i,:), s_hyp,i);
-            fprintf('i = %d | kappa = %.2f | eta=%.10f | regret = %.10f.  \n', i, kappa, eta, loss_seq(counter,:));
+            fprintf('i = %d | kappa = %.2f |time: %.2f | eta=%.10f | regret = %.10f.  \n', i, kappa, sum(time_seq), eta, loss_seq(counter,:));
             tic;
         end
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if sum(time_seq)>136%i>1550
+    if sum(time_seq)>236%i>1550
         break;
     end
     
