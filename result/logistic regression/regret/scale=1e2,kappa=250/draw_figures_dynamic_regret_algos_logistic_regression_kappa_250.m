@@ -20,14 +20,14 @@ if strcmp(model_opt,'logistic_regression')
 %     semilogy(sum_time_seq_MOGD, sum_f_seq_MOGD, ':k','LineWidth', 2);
 %     hold on;
 %scale = 1e2, real dataset: skin
-    sum_time_seq_OGD = 100:100:800;
-    sum_f_seq_OGD = [0.0311 0.0339 0.036 0.038 0.0387 0.0406 0.0408 0.0424];
+    sum_time_seq_OGD = 100:100:500;
+    sum_f_seq_OGD = [0.332 0.358 0.38 0.4 0.41];
     
-    sum_time_seq_OMGD = 100:100:800;
-    sum_f_seq_OMGD = [0.00619 0.0068 0.0072 0.0076 0.00786 0.0082 0.0084 0.0087];
+    sum_time_seq_OMGD = 100:100:500;
+    sum_f_seq_OMGD = [0.065 0.07 0.0747 0.0788 0.08];
     
-    sum_time_seq_MOGD = 100:100:800;
-    sum_f_seq_MOGD = [0.001 0.0013 0.0014 0.0016 0.00175 0.00187 0.00206 0.002156];
+    sum_time_seq_MOGD = 100:100:500;
+    sum_f_seq_MOGD = [0.0126 0.0137 0.0145 0.0154 0.0157];
     
     semilogy(sum_time_seq_OGD, sum_f_seq_OGD, '-r','LineWidth', 2);
     hold on;
@@ -43,7 +43,7 @@ if strcmp(model_opt,'logistic_regression')
     ylabel('Dynamic regret', 'fontsize', 18 );
     %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([100 800 1e-4 1e-1]);
+    axis([100 500 1e-3 1]);
     %$$ \mathcal{P}_T^{\ast} $$
     h = legend('OGD', ...
         'OMGD', ...

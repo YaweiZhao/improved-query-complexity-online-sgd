@@ -19,23 +19,22 @@ if strcmp(model_opt,'logistic_regression')
     semilogy(sum_time_seq_OMGD, sum_f_seq_OMGD, '--b','LineWidth', 2);
     hold on;
     
-    semilogy(sum_time_seq_MOGD, sum_f_seq_MOGD, '-.g','LineWidth', 2);
+    semilogy(sum_time_seq_MOGD, sum_f_seq_MOGD, ':k','LineWidth', 2);
     hold on;
-    semilogy(sum_time_seq_NAGM, sum_f_seq_NAGM, ':k','LineWidth', 2);
-    hold on;
+    %semilogy(sum_time_seq_NAGM, sum_f_seq_NAGM, ':k','LineWidth', 2);
+    %hold on;
     
     
     xlabel('CPU seconds', 'fontsize', 18);
     ylabel('Dynamic regret', 'fontsize', 18 );
-    set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
+    %set(gca,'ytick',[1e-9 1e-7 1e-5 1e-3 1e-1 1e1 1e3]);
     %set(gca,'yticklabel',{'Two','Four','Five','Seven'});
-    axis([1 55 1e-9 1e3]);
+    axis([1 140 1e-2 1e4]);
     %$$ \mathcal{P}_T^{\ast} $$
     h = legend('OGD', ...
         'OMGD', ...
-        'MOGD-GD', ...
-        'MOGD-NAGM', ...
-        'Location', 'east');
+        'MOGD', ...
+        'Location', 'southeast');
     
     set(h,'Interpreter','latex');
     
