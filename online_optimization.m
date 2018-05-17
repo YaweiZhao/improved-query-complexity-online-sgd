@@ -116,7 +116,7 @@ for i=1:T %n >> T
     %[x_seq(i,:), f_seq(i,:)] = get_local_minimizer(x_t, Ai, [],  s_hyp) ;
     %f_t_seq(i,:) = get_local_loss(x_t, Ai, [],  s_hyp) ;
     x_seq(i,:) = x_t';
-    interval=10;
+    interval=5;
     if strcmp(ALGO, 'MOGD10') || strcmp(ALGO, 'OMGD')
         if mod(i,interval) == 0
             counter = fix(i/interval);
@@ -127,7 +127,7 @@ for i=1:T %n >> T
             tic;
         end
     elseif strcmp(ALGO, 'OGD')
-        interval = interval*4; 
+        interval = interval*2; 
         if mod(i,interval) == 0
             counter = fix(i/interval);
             time_seq(counter,:) = toc;%i
@@ -139,7 +139,7 @@ for i=1:T %n >> T
     end
     %terminate the process
     %cpu_seconds = cpu_seconds + time_seq(i,:);
-    if sum(time_seq)>106%
+    if sum(time_seq)>206%
         break;
     end
     
